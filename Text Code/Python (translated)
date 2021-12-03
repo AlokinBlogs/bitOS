@@ -1,0 +1,139 @@
+# bitOS (Version 1, Build 4, 2022)
+# Made by alokinBlogs, using Visual Studio Code, and Microsoft Makecode, as well as a BBC micro:bit board. Ofiicial name is "alokin-bitOS"
+# -
+# Initial booting logo, which can be changed. This is supposed to show the letter "H". to change it, you can replace the hashes (which are the lights that are supposed to be shown) with dots. Shift it to a figure of your desire.
+basic.show_leds("""
+    . . . . .
+        . . . . .
+        . . . . .
+        # . . . .
+        . . . . .
+""")
+basic.pause(50)
+basic.show_leds("""
+    . . . . .
+        . . . . .
+        . . . . .
+        # . . . .
+        . # . . .
+""")
+basic.pause(50)
+basic.show_leds("""
+    . . . . .
+        . . . . .
+        . . . . .
+        # . # . .
+        . # . . .
+""")
+basic.pause(50)
+basic.show_leds("""
+    . . . . .
+        . . . . .
+        . . . # .
+        # . # . .
+        . # . . .
+""")
+basic.show_leds("""
+    . . . . .
+        . . . . #
+        . . . # .
+        # . # . .
+        . # . . .
+""")
+basic.clear_screen()
+
+def on_forever():
+    # When Button A is pressed, it will show the current compass heading.
+    if input.button_is_pressed(Button.A):
+        basic.show_string("" + str((input.compass_heading())))
+    # When Button B is presses, the current temperature will be shown.
+    if input.button_is_pressed(Button.B):
+        basic.show_string("" + str((input.temperature())))
+    # When the board is being shaked, the board will choose a random number from 0 to 26 by default. If you wish for the max number to be changed, please change the number from below.
+    if input.is_gesture(Gesture.SHAKE):
+        basic.show_string("" + str((randint(0, 26))))
+    # When the board is dropped (please, do not break yours), it senses the motion and warns you. You can change the warning by replacing "Be careful!" with something else of your choice.
+    if input.is_gesture(Gesture.FREE_FALL):
+        basic.show_string("Be careful!")
+    # When the board's LEDs are facing dowm, they will all turn on to immitate the effect of a red flashlight, but won't be as effective as one. It turns off 10 seconds after its activation.
+    if input.is_gesture(Gesture.SCREEN_DOWN):
+        basic.show_leds("""
+            # # # # #
+                        # # # # #
+                        # # # # #
+                        # # # # #
+                        # # # # #
+        """)
+        basic.pause(10000)
+    # When the board is flipped with the logo upside down, show a help page.
+    if input.is_gesture(Gesture.LOGO_DOWN):
+        basic.show_string("Do you need help? Go to alokinblogs.com for more info.")
+    # Once the board is turned right, it warns the user to connect headphones or a speaker with a headphone jack by attaching the 0 and GND pin to a port.
+    if input.is_gesture(Gesture.TILT_RIGHT):
+        basic.show_string("Connect Pin 0 and Pin 2 to a headphone jack.")
+        basic.pause(3000)
+        music.play_melody("C D D E F G G A ", 260)
+    if input.is_gesture(Gesture.LOGO_UP):
+        basic.show_string("Please plug your micro:bit to your computer and open a text document.")
+        basic.pause(7500)
+        serial.write_line("Hello, welcome to bitOS! This is the secret help center. You can still turn the board with the logo down to see all the needed things on the screen, but this shows everything in a notepad on your computer. If you want the source code, you can look in the GIT repository of the OS. For more info, visit alokinblogs.com/bitos ")
+    if input.is_gesture(Gesture.THREE_G):
+        basic.show_string("I am going to ask you a question, you click A for Yes and B for No.")
+        basic.pause(100)
+        basic.show_string("Is the power of the cell called Michachondia?")
+        if input.button_is_pressed(Button.A):
+            basic.show_string("Wrong!")
+        if input.button_is_pressed(Button.B):
+            basic.show_string("You are correct!")
+    # Once the board is tiled left and up, it shows an animation that repeats 5 times.
+    if input.is_gesture(Gesture.TILT_LEFT):
+        for index in range(5):
+            basic.show_leds("""
+                . . . . #
+                                # # . . .
+                                . # . . .
+                                . # . . .
+                                # # # # #
+            """)
+            basic.pause(10)
+            basic.show_leds("""
+                . . . # #
+                                # # . . #
+                                . # . . .
+                                . # . . .
+                                # # # # #
+            """)
+            basic.pause(10)
+            basic.show_leds("""
+                . . # # #
+                                # # . # #
+                                . # . . #
+                                . # . . .
+                                # # # # #
+            """)
+            basic.pause(10)
+            basic.show_leds("""
+                . . . # #
+                                # # . . #
+                                . # . . .
+                                . # . . .
+                                # # # # #
+            """)
+            basic.pause(10)
+            basic.show_leds("""
+                . . . . #
+                                # # . . .
+                                . # . . .
+                                . # . . .
+                                # # # # #
+            """)
+            basic.pause(10)
+            basic.show_leds("""
+                . . . . .
+                                # # . . .
+                                . # . . .
+                                . # . . .
+                                # # # # #
+            """)
+            basic.clear_screen()
+basic.forever(on_forever)
