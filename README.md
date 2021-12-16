@@ -31,4 +31,4 @@ User Distribution Agreement:
 3. If the edited variant is for a different platform than BBC micro:bit and Arduino, it can be published as a full copyright file, with credits to alokinBlogs. 
 
 Thank you for reading!
-© Copyright alokinBlogs, 2020-2022. All rights reserved.
+© alokinBlogs, 2020-2022. All rights reserved.
